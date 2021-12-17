@@ -12,5 +12,6 @@ setup(
       packages=[
             'my_custom_sklearn_transforms'
       ],
-      zip_safe=False
+      zip_safe=False,
+      install_requires=['catboost']
 )
