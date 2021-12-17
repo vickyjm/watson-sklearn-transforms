@@ -51,7 +51,8 @@ class CatBoostModel(BaseEstimator, TransformerMixin):
         self.model = CatBoostClassifier(scale_pos_weight=scale_pos_weight)
 
     def fit(self, X, y=None):
-        self.model.fit(X,y)
+        categorical_var = np.where(X.dtypes != np.float)[0]
+        self.model.fit(X,y, cat_features=categorical_var)
         return self
 
     def transform(self, X):
