@@ -47,14 +47,15 @@ class DistTransform(BaseEstimator, TransformerMixin):
         return data
 
 class CatBoostModel(BaseEstimator, TransformerMixin):
-    def __init__(self, scale_pos_weight=1):
+    def __init__(self, scale_pos_weight=1, cat_features):
         self.model = CatBoostClassifier(scale_pos_weight=scale_pos_weight)
+        self.cat_features = cat_features
 
     def fit(self, X, y=None):
-        categorical_var = np.where(X.dtypes != np.float)[0]
-        self.model.fit(X,y, cat_features=categorical_var)
+        self.model.fit(X,y, cat_features=self.cat_features)
         return self
 
     def transform(self, X):
         return self.model.predict(X)
+
 
